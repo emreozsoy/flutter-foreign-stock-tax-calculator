@@ -272,79 +272,163 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: phoneHeight * 0.01),
-              Visibility(
-                visible: widget.whichShare == 1,
-                child: Padding(
+          child: Container(
+            color: Color.fromRGBO(26, 188, 156, 0.25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: phoneHeight * 0.01),
+                Visibility(
+                  visible: widget.whichShare == 1,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(phoneWidth * 0.1,
+                        phoneHeight * 0.01, phoneWidth * 0.15, phoneHeight * 0.01),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: DropdownButtonFormField2<String>(
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              hoverColor: Colors.green,
+                              filled: true,
+                              fillColor: CupertinoColors.systemGrey4,
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 12),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(32),
+                              ),
+                              isDense: true,
+                              // Diğer dekorasyon ayarlarını burada ekleyin
+                            ),
+                            hint: Text(
+                              'İşlem Yapılan Hisse Sayısı',
+                              textAlign: TextAlign.center,
+                              style: (buildJosefinSans(0.5, 16)),
+                            ),
+                            items: list
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item.toString(),
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                        child: Text(
+                                          item.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            validator: (value) {
+                              if (value == null) {
+                                return 'İşlem Yapılan Hisse Sayısı';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              // Seçilen öğe değiştiğinde yapılacak işlemler
+                            },
+                            onSaved: (value) {
+                              selectedValue = value.toString();
+                            },
+                            buttonStyleData: const ButtonStyleData(
+
+                              padding: EdgeInsets.only(right: 8),
+                            ),
+                            iconStyleData: const IconStyleData(
+                              icon: Icon(
+                                Icons.keyboard_arrow_down_sharp,
+                                color: Colors.black,
+                              ),
+                              iconSize: 32,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              decoration: BoxDecoration(
+                                color: CupertinoColors.systemGrey5,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(phoneWidth * 0.025),
+                          child: Image(
+                            image: AssetImage(
+                                'lib/assets/images/icon _bar chart_.png'), // Eklemek istediğiniz resmin yolunu belirtin
+                            width: 32, // Resmin genişliği
+                            height: 32, // Resmin yüksekliği
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                    visible: widget.whichShare == 1,
+                    child: Image.asset('lib/assets/images/Line2.png')),
+
+                Padding(
                   padding: EdgeInsets.fromLTRB(phoneWidth * 0.1,
                       phoneHeight * 0.01, phoneWidth * 0.15, phoneHeight * 0.01),
                   child: Row(
-                    children: [
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
                       Expanded(
-                        child: DropdownButtonFormField2<String>(
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                            hoverColor: Colors.blue,
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                            // Diğer dekorasyon ayarlarını burada ekleyin
+                      child: DropdownButtonFormField<int>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          hoverColor: Colors.green,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                          filled: true,
+                          fillColor: CupertinoColors.systemGrey4,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(32),
                           ),
-                          hint: Text(
-                            'İşlem Yapılan Hisse Sayısı',
+                          // Adjust the height to center the hint text vertically
+                          isDense: true,
+                        ),
+                        value: buyDropDownValue,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_sharp,
+                            color: Colors.black,
+                            size: 32,
+                          ),
+                        elevation: 16,
+                        style: (buildJosefinSans(0.5, 16)),
+                        onChanged: (int? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            buyDropDownValue = value!;
+                            bDropDownValue = buyDropDownValue!;
+                          });
+                        },
+                        hint: Padding(
+                          padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
+                          child: Text(
+                            'Satın Alınan Hisse Sayısı', //??fix center problem
                             textAlign: TextAlign.center,
                             style: buildJosefinSans(0.5, 16),
                           ),
-                          items: list
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item.toString(),
-                                    child: Text(
-                                      item.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                          validator: (value) {
-                            if (value == null) {
-                              return 'İşlem Yapılan Hisse Sayısı';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            // Seçilen öğe değiştiğinde yapılacak işlemler
-                          },
-                          onSaved: (value) {
-                            selectedValue = value.toString();
-                          },
-                          buttonStyleData: const ButtonStyleData(
-                            padding: EdgeInsets.only(right: 8),
-                          ),
-                          iconStyleData: const IconStyleData(
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_sharp,
-                              color: Colors.black,
-                            ),
-                            iconSize: 32,
-                          ),
-                          dropdownStyleData: DropdownStyleData(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          menuItemStyleData: const MenuItemStyleData(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                          ),
                         ),
+                        items: list.map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            alignment: Alignment.center,
+                            value: value,
+                            child: Text(value.toString(), textAlign: TextAlign.center,),
+                          );
+                        }).toList(),
+                        dropdownColor: CupertinoColors.systemGrey5,
+                        borderRadius: BorderRadius.circular(15),
                       ),
+                    ),
                       Padding(
                         padding: EdgeInsets.all(phoneWidth * 0.025),
                         child: Image(
@@ -354,239 +438,221 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                           height: 32, // Resmin yüksekliği
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Visibility(
-                  visible: widget.whichShare == 1,
-                  child: Image.asset('lib/assets/images/Line2.png')),
+                  ]),
 
-              Padding(
-                padding: EdgeInsets.fromLTRB(phoneWidth * 0.1,
-                    phoneHeight * 0.01, phoneWidth * 0.15, phoneHeight * 0.01),
-                child: DropdownButtonFormField<int>(
-                  decoration: InputDecoration(
-                    hoverColor: Colors.blue,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    // Adjust the height to center the hint text vertically
-                    isDense: true,
-                  ),
-                  value: buyDropDownValue,
-                  isExpanded: true,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                  ),
-                  onChanged: (int? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      buyDropDownValue = value!;
-                      bDropDownValue = buyDropDownValue!;
-                    });
-                  },
-                  hint: Text(
-                    '         Satın Alınan Hisse Sayısı', //??fix center problem
-                    textAlign: TextAlign.center,
-                    style: buildJosefinSans(0.5, 16),
-                  ),
-                  items: list.map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem<int>(
-                      alignment: AlignmentDirectional.center,
-                      value: value,
-                      child: Text(value.toString(), textAlign: TextAlign.center,),
-                    );
-                  }).toList(),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(phoneWidth * 0.01,
-                    phoneHeight * 0.01, phoneWidth * 0.01, phoneHeight * 0.01),
-                child: Container(
-                  width: phoneWidth * 0.9,
-                  height: phoneHeight * 0.35,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(90), // Reduced border radius for a more subtle curve
-                    color: Color.fromRGBO(46, 204, 113, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0), // Added padding for better spacing
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2005),
-                              lastDate: DateTime.now(),
-                            ).then((selectedDate) async {
-                              if (selectedDate != null) {
-                                getUFEIndex(selectedDate, 0);
-                                getExchangeRate(selectedDate, 0);
-                                //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
-                              }
-                            });
-                          },
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15), // Adjusted button border radius
+                Padding(
+                  padding: EdgeInsets.fromLTRB(phoneWidth * 0.01,
+                      phoneHeight * 0.01, phoneWidth * 0.01, phoneHeight * 0.01),
+                  child: Container(
+                    width: phoneWidth * 0.9,
+                    height: phoneHeight * 0.35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90), // Reduced border radius for a more subtle curve
+                      color: Color.fromRGBO(46, 204, 113, 1),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0), // Added padding for better spacing
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [ElevatedButton(
+                              onPressed: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2005),
+                                  lastDate: DateTime.now(),
+                                ).then((selectedDate) async {
+                                  if (selectedDate != null) {
+                                    getUFEIndex(selectedDate, 0);
+                                    getExchangeRate(selectedDate, 0);
+                                    //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
+                                  }
+                                });
+                              },
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15), // Adjusted button border radius
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(CupertinoColors.systemGrey4),
+                                minimumSize: MaterialStateProperty.all(Size(
+                                    phoneWidth * 0.5,
+                                    phoneHeight * 0.05)), // Adjusted the minimum size for the button
+                              ),
+                              child: Text(
+                                'İşlem Tarihi',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                            backgroundColor: MaterialStateProperty.all(Colors.white),
-                            minimumSize: MaterialStateProperty.all(Size(
-                                phoneWidth * 0.5,
-                                phoneHeight * 0.05)), // Adjusted the minimum size for the button
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Image.asset("lib/assets/images/icon _date_.png",
+                                  width: 45,
+                                  height: 45,
+                                )
+                              )
+                         ],
                           ),
-                          child: Text(
-                            'İşlem Tarihi',
-                            style: TextStyle(
-                              color: Colors.black,
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  labelText: ('Hisse Değerini Girin: '),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                                  filled: true,
+                                  fillColor: CupertinoColors.systemGrey4,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                onChanged: (value) {
+                                  setState(() {
+                                    final numberFormat = NumberFormat.decimalPattern();
+                                    final parsedValue = numberFormat.parse(value);
+                                    buyStockPrice[0] = parsedValue.toDouble();
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        TextField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            labelText: ('Hisse Değerini Girin: '),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
+                          ],),
+                          SizedBox(height: 16.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  labelText: ('Hisse Miktarını Girin: '),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                                  filled: true,
+                                  fillColor: CupertinoColors.systemGrey4,
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                onChanged: (value) {
+                                  setState(() {
+                                    final numberFormat = NumberFormat.decimalPattern();
+                                    final parsedValue = numberFormat.parse(value);
+                                    buyStockCount[0] = parsedValue.toDouble();
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
-                          onChanged: (value) {
-                            setState(() {
-                              final numberFormat = NumberFormat.decimalPattern();
-                              final parsedValue = numberFormat.parse(value);
-                              buyStockPrice[0] = parsedValue.toDouble();
-                            });
-                          },
-                        ),
-                        SizedBox(height: 16.0),
-                        TextField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            labelText: ('Hisse Miktarını Girin: '),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
-                          onChanged: (value) {
-                            setState(() {
-                              final numberFormat = NumberFormat.decimalPattern();
-                              final parsedValue = numberFormat.parse(value);
-                              buyStockCount[0] = parsedValue.toDouble();
-                            });
-                          },
-                        ),
-                        SizedBox(height: 16.0),
+                          ],),
+                          SizedBox(height: 16.0),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              getItDone(bDropDownValue),
-              Text(
-                '--------------Satılan Hisse--------------',
-                style: TextStyle(fontSize: 30),
-              ),
-              ElevatedButton(
+                getItDone(bDropDownValue),
+                Image.asset("lib/assets/images/img_dividetwopart.png"),
+                Text(
+                  '--------------Satılan Hisse--------------',
+                  style: TextStyle(fontSize: 30),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        //_buyProcess =_buyProcess! +1;
+                        // getItDone(_buyProcess!);
+                      });
+                    },
+                    child: Text("Ekle")),
+                ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      //_buyProcess =_buyProcess! +1;
-                      // getItDone(_buyProcess!);
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2005),
+                      lastDate: DateTime.now(),
+                    ).then((mselectedDate) async {
+                      if (mselectedDate != null) {
+                        getSellUFEIndex(mselectedDate, 0);
+
+                        getSellExchangeRate(mselectedDate, 0);
+
+                        //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
+                      }
                     });
                   },
-                  child: Text("Ekle")),
-              ElevatedButton(
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2005),
-                    lastDate: DateTime.now(),
-                  ).then((mselectedDate) async {
-                    if (mselectedDate != null) {
-                      getSellUFEIndex(mselectedDate, 0);
-
-                      getSellExchangeRate(mselectedDate, 0);
-
-                      //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
-                    }
-                  });
-                },
-                child: Text('İşlem Tarihi'),
-              ),
-              SizedBox(height: 20),
-              open
-                  ? Text(
-                      'Exchange Rate: ${_sellExchangeRate[0]}',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  : Text('Boş'),
-              SizedBox(height: 20),
-              Text(
-                'Yİ-ÜFE Endeks Değeri: ${_sellUfeIndex[0]}',
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Hisse Değerini Girin',
+                  child: Text('İşlem Tarihi'),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value) {
-                  setState(() {
-                    final numberFormat = NumberFormat
-                        .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
-                    final parsedValue = numberFormat.parse(value);
-                    sellStockPrice[0] = parsedValue.toDouble();
-                  });
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text(
-                'Input value: ${sellStockPrice[0]}',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Hisse Miktarı Girin',
+                SizedBox(height: 20),
+                open
+                    ? Text(
+                        'Exchange Rate: ${_sellExchangeRate[0]}',
+                        style: TextStyle(fontSize: 20),
+                      )
+                    : Text('Boş'),
+                SizedBox(height: 20),
+                Text(
+                  'Yİ-ÜFE Endeks Değeri: ${_sellUfeIndex[0]}',
+                  style: TextStyle(fontSize: 20),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value) {
-                  setState(() {
-                    final numberFormat = NumberFormat
-                        .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
-                    final parsedValue = numberFormat.parse(value);
-                    sellStockCount[0] = parsedValue.toDouble();
-                  });
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text(
-                'Input value: ${sellStockCount[0]}',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: 16.0),
-            ],
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Hisse Değerini Girin',
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onChanged: (value) {
+                    setState(() {
+                      final numberFormat = NumberFormat
+                          .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
+                      final parsedValue = numberFormat.parse(value);
+                      sellStockPrice[0] = parsedValue.toDouble();
+                    });
+                  },
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Input value: ${sellStockPrice[0]}',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Hisse Miktarı Girin',
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onChanged: (value) {
+                    setState(() {
+                      final numberFormat = NumberFormat
+                          .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
+                      final parsedValue = numberFormat.parse(value);
+                      sellStockCount[0] = parsedValue.toDouble();
+                    });
+                  },
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Input value: ${sellStockCount[0]}',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                SizedBox(height: 16.0),
+              ],
+            ),
           ),
         ),
       ),
@@ -662,7 +728,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
 
   TextStyle buildJosefinSans(double lttrSpace, double fontSize) {
     return GoogleFonts.josefinSans(
-      textStyle: TextStyle(letterSpacing: lttrSpace, fontSize: fontSize),
+      textStyle: TextStyle(letterSpacing: lttrSpace, fontSize: fontSize,color: Colors.black),
     );
   }
 

@@ -116,7 +116,7 @@ class _MainPageState extends State<MainPage> {
         color:Color.fromRGBO(26, 188, 156, 0.25),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Container(
