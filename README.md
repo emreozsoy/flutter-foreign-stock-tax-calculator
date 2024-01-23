@@ -1,16 +1,61 @@
-# get_data
+<div style="display:flex; justify-content: space-between; align-items: center;">
 
-A new Flutter project.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.md) [![tr](https://img.shields.io/badge/lang-tr-red.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.md)
 
-## Getting Started
+</div>
 
-This project is a starting point for a Flutter application.
+# Yabancı Borsalardan Elde Edilen Kazançlardan Vergi Hesaplanması
 
-A few resources to get you started if this is your first Flutter project:
+Merhabalar! Projenin amacı yurtdışı borsalarında yapılan hisse senedi alım/satım işlemlerinde elde edilen kazançlardan ödenmesi gereken verginin hesaplanmasını kolaylaştıran bir uygulama geliştirmektir. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan bireylerin muhasebeciye gerek duymadan kendi vergi işlemlerini kolaylıkla kontrol edebilirmelerine olanak sağlanması amaçlanmıştır.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Teknolojiler
+
+- Flutter
+- [intl](https://pub.dev/packages/intl)
+- [html](https://pub.dev/packages/html/install)
+- [dropdown_button2](https://pub.dev/packages/dropdown_button2)
+- [awesome_snacbar_content](https://pub.dev/packages/awesome_snackbar_content)
+- [google_fonts](https://pub.dev/packages/google_fonts)
+
+## Başlangıç
+
+- Verileri merkez bankasının API'sinden çekmeniz için öncelikle API anahtarna sahip olmalısınız . 
+- Aşağıda verdiğim link üzerinden kayıt olduktan sonra ad ve soyadınız yazan buton üzerinden profil kısmına ulaşarak API'nize erişim sağlayabilirsiniz. 
+
+[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login)
+
+// Resimi koy apinin değiştirilmesi gereken yeri göster.
+
+ **Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamayı geliştirmeyi ve düzenlemeyi düşünenler için**
+
+## YÜFE Verisine Erişim
+
+- Bu kısımda YÜFE verisine erişmek için API kullanmak yerine web kazıması (web scraping) yaparak istediğimiz verilere ulaşacağız.
+- Bunun için
+
+##  Kullanım
+
+- Kullanıcıdan alınan veriler.
+
+| Parameter | Type     |   
+| :-------- | :------- | 
+| `buyStockPrice`      | `double` |
+| `buyStockQuantity`      | `double` |
+| `_buySelectedDate`      | `DateTime` |
+
+| Parameter | Type     |   
+| :-------- | :------- | 
+| `sellStockPrice`      | `double` |
+| `sellStockQuantity`      | `double` |
+| `_sellSelectedDate`      | `DateTime` |
+
+
+
+## Authors
+
+- [@emreozsoy](https://www.github.com/emreozsoy)
+
+
+
