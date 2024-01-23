@@ -28,7 +28,7 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 
 // Resimi koy apinin değiştirilmesi gereken yeri göster.
 
- **Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamayı geliştirmeyi ve düzenlemeyi düşünenler için**
+ ***Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamayı geliştirmeyi ve düzenlemeyi düşünenler için***
 
 ## YÜFE Verisine Erişim
 
