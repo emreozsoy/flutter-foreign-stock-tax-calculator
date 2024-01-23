@@ -57,7 +57,6 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 - Figma'yı kullanarak ilk kullanıcı arayüzünü hazırladım.
 <div style="display:flex; justify-content: space-between; align-items: center;">
   
-<img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number0_tr_page.png" alt="alt text" width="250" height="600">
 
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number1_tr_page.png" alt="alt text" width="250" height="600">
 
