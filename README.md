@@ -20,13 +20,14 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 - [google_fonts](https://pub.dev/packages/google_fonts)
 
 ## Başlangıç
-
-- Verileri merkez bankasının API'sinden çekmeniz için öncelikle API anahtarna sahip olmalısınız . 
+- Öncelikle kullancıdan alıcağımız veriler dışında internetten ulaşmamız gereken YÜFE ve hisse alım/satım işlemlerinin yapıldığı günlerdeki dolar kuruna ulaşmamız gerekli.
+- Dolar kuru verilerini merkez bankasının API'sinden çekmeniz için öncelikle API anahtarna sahip olmalısınız . 
 - Aşağıda verdiğim link üzerinden kayıt olduktan sonra ad ve soyadınız yazan buton üzerinden profil kısmına ulaşarak API'nize erişim sağlayabilirsiniz. 
 
-[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login)
-
-// Resimi koy apinin değiştirilmesi gereken yeri göster.
+[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login) Daha sonra aşağıda belirttiğim 
+```
+   String yourAPI= "";
+```
 
  ***Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamayı geliştirmeyi ve düzenlemeyi düşünenler için***
 
@@ -50,6 +51,8 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 | `sellStockPrice`      | `double` |
 | `sellStockQuantity`      | `double` |
 | `_sellSelectedDate`      | `DateTime` |
+
+# Tasarım
 
 
 
