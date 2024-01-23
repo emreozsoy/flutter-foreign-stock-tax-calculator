@@ -1,10 +1,6 @@
 import 'package:get_data/assets/screens/calculate_screen.dart';
-import 'package:get_data/assets/screens/language_selection_screen.dart';
-import 'package:mailto/mailto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 
@@ -41,7 +37,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  String _selectedLanguage = 'en';
   SampleItem? selectedMenu;
   final Widget? language_icon =  Icon(
     Icons.language,
@@ -163,7 +158,7 @@ class _MainPageState extends State<MainPage> {
                               },
                               pageBuilder:
                                   (context, animation, secondaryAnimation) {
-                                return Calculate_Screen(whichShare: 1,);
+                                return Calculate_Screen(whichShare: 1,processCount: 1,flagProcessCount: 1,);
                               },
                             ),
                           );
