@@ -13,6 +13,7 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 # Teknolojiler
 
 - Flutter
+- Figma
 - [intl](https://pub.dev/packages/intl)
 - [html](https://pub.dev/packages/html/install)
 - [dropdown_button2](https://pub.dev/packages/dropdown_button2)
@@ -53,7 +54,9 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 | `_sellSelectedDate`      | `DateTime` |
 
 # Tasarım
-
+- Figma'yı kullanarak ilk kullanıcı arayüzünü hazırladım.
+  
+<img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number2_tr_page.jpg" alt="alt text" width="250" height="600">
 
 
 ## Authors
