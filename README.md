@@ -63,6 +63,8 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number2_tr_page.jpg" alt="alt text" width="250" height="600">
 
+<img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number3_tr_page.png" alt="alt text" width="250" height="600">
+
 </div>
 
 
