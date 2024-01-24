@@ -25,12 +25,15 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 - Dolar kuru verilerini merkez bankasının API'sinden çekmeniz için öncelikle API anahtarna sahip olmalısınız . 
 - Aşağıda verdiğim link üzerinden kayıt olduktan sonra ad ve soyadınız yazan buton üzerinden profil kısmına ulaşarak API'nize erişim sağlayabilirsiniz. 
 
-[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login) Daha sonra aşağıda belirttiğim 
+[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login) 
+
+- Daha sonra aşağıda 'calculate_screen.dart' dosyası içerisinde yer alan 'yourAPI' değişkenini kendi API anahtarınızla değiştirin. 
+
 ```
    String yourAPI= "";
 ```
 
- ***Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamayı geliştirmeyi ve düzenlemeyi düşünenler için***
+ ***Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamanın gelişimini merak edenler ve düzenlemeyi düşünenler için***
 
 ## YÜFE Verisine Erişim
 
@@ -41,30 +44,32 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 
 - Kullanıcıdan alınan veriler.
 
-| Parameter | Type     |   
+| Parametre | Tür     |   
 | :-------- | :------- | 
 | `buyStockPrice`      | `double` |
 | `buyStockQuantity`      | `double` |
 | `_buySelectedDate`      | `DateTime` |
 
-| Parameter | Type     |   
+| Parametre | Tür     |   
 | :-------- | :------- | 
 | `sellStockPrice`      | `double` |
 | `sellStockQuantity`      | `double` |
 | `_sellSelectedDate`      | `DateTime` |
 
-# Tasarım
-- Figma'yı kullanarak ilk kullanıcı arayüzünü hazırladım.
+## Tasarım Aşamaları
 <div style="display:flex; justify-content: space-between; align-items: center;">
   
+- Uygulamayı öncelikle alınacak verileri düşünerek paint üzerinden basit bir tasarım yaptım. Sonrasında Figma'yı kullanarak ilk kullanıcı arayüzünü hazırladım.
 
-<img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number1_tr_page.png" alt="alt text" width="250" height="600">
+<img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number0_tr_page.png" alt="Text" width="250" height="600">
+ <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number1_tr_page.png" alt="alt text" width="250" height="600">
 
+- Figma'yı kullanarak kullanıcı arayüzü tasarımını geliştirdim. Geliştirdiğim son tasarımımı uygulamak üzere Flutter'ın özelliklerini de kullanarak son haline getirdim.
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number2_tr_page.jpg" alt="alt text" width="250" height="600">
-
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number3_tr_page.png" alt="alt text" width="250" height="600">
-
 </div>
+
+
 
 
 ## Authors
