@@ -1,6 +1,6 @@
 <div style="display:flex; justify-content: space-between; align-items: center;">
    
- ![MIT License](https://img.shields.io/badge/License-MIT-green.svg) [![tr](https://img.shields.io/badge/lang-tr-red.svg)](https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/README.md)
+ ![MIT License](https://img.shields.io/badge/License-MIT-green.svg) [![tr](https://img.shields.io/badge/lang-tr-red.svg)](https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/README.tr.md)
 
 </div>
 
