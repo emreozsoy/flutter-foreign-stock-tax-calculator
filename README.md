@@ -135,7 +135,7 @@ The goal is to provide individuals who engage in small-scale buying and selling 
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number0_tr_page.png" alt="Text" width="250" height="600">
  <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number1_tr_page.png" alt="alt text" width="250" height="600">
 
-- I designed the user interface using Figma and finalized it by implementing the features of Flutter to bring it to its final form.
+- I improved the user interface design using Figma and finalized it by implementing the features of Flutter to bring it to its final form.
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number2_en_page.jpg" alt="alt text" width="250" height="600">
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number3_tr_page.png" alt="alt text" width="250" height="600">
 </div>
