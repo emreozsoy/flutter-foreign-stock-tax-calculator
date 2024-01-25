@@ -40,7 +40,7 @@ The goal is to provide individuals who engage in small-scale buying and selling 
 - In this section, instead of using an API to access the CPI data, we will use web scraping to extract the required data from a table on the website "https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi".
 - The 'fetchYufeIndex' function in the calculate_screen.dart class file handles this process.
   
-  ```
+  ```dart
   Future<String> fetchYufeIndex(DateTime selectedDate) async {
     final url =
         'https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi';
@@ -84,7 +84,7 @@ The goal is to provide individuals who engage in small-scale buying and selling 
   ```
 - Lastly, we add the necessary code to fetch the exchange rate on the day the transaction was made.
 
-    ```
+    ```dart
   Future<String> fetchExchangeRate(DateTime date) async {
     date = date.subtract(Duration(days: 1));
     final formattedDate =
