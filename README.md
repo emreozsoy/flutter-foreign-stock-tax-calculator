@@ -4,13 +4,14 @@
 
 </div>
 
-# Yabancı Borsalardan Elde Edilen Kazançlardan Vergi Hesaplanması
 
-Merhabalar! Projenin amacı yurtdışı borsalarında yapılan hisse senedi alım/satım işlemlerinde elde edilen kazançlardan ödenmesi gereken verginin hesaplanmasını kolaylaştıran bir uygulama geliştirmektir. 
+# Tax Calculation on Gains from Foreign Stock Exchanges
 
-Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan bireylerin muhasebeciye gerek duymadan kendi vergi işlemlerini kolaylıkla kontrol edebilirmelerine olanak sağlanması amaçlanmıştır.
+Hello! The purpose of this project is to develop an application that facilitates the calculation of taxes on gains from stock trading on foreign exchanges. 
 
-# Teknolojiler
+The goal is to provide individuals who engage in small-scale buying and selling on foreign exchanges with the ability to easily track and manage their tax obligations without the need for an accountant.
+
+# Technologies
 
 - Flutter
 - Figma
@@ -20,26 +21,24 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 - [awesome_snacbar_content](https://pub.dev/packages/awesome_snackbar_content)
 - [google_fonts](https://pub.dev/packages/google_fonts)
 
-## Başlangıç
-- Öncelikle kullancıdan alıcağımız veriler dışında internetten ulaşmamız gereken YÜFE ve hisse alım/satım işlemlerinin yapıldığı günlerdeki dolar kuruna ulaşmamız gerekli.
-- Dolar kuru verilerini merkez bankasının API'sinden çekmeniz için öncelikle API anahtarna sahip olmalısınız . 
-- Aşağıda verdiğim link üzerinden kayıt olduktan sonra ad ve soyadınız yazan buton üzerinden profil kısmına ulaşarak API'nize erişim sağlayabilirsiniz. 
+## Getting Started
+- Apart from the data we will obtain from the user, we need to fetch the Consumer Price Index (CPI) and the exchange rate on the days of stock trading from the internet.
+- To fetch the exchange rate data, you need to have an API key from the Central Bank. After registering through the link provided below, you can access your API key by going to the profile section.
 
-[Merkez Bankası API Kayıt Linki](https://evds2.tcmb.gov.tr/index.php?/evds/login) 
+[Central Bank API Registration Link](https://evds2.tcmb.gov.tr/index.php?/evds/login) 
 
-- Daha sonra aşağıda 'calculate_screen.dart' dosyası içerisinde yer alan 'yourAPI' değişkenini kendi API anahtarınızla değiştirin. 
+- After obtaining the API key, replace the 'yourAPI' variable in the 'calculate_screen.dart' file with your own API key.
 
-```
+```dart
    String yourAPI= "";
 ```
 
- ***Bu adımdan sonra uygulamayı dilediğiniz gibi kullanabilirsiniz. Yazının devamı uygulamanın gelişimini merak edenler ve düzenlemeyi düşünenler için***
+ ***After this step, you can use the application as you wish. The rest of the text is for those who are curious about the development of the application and those who plan to make edits.***
 
-### Dolar Kuru ve YÜFE Verisine Erişim
+### Accessing Exchange Rate and CPI Data
 
-- Bu kısımda YÜFE verisine erişmek için API kullanmak yerine web kazıması (web scraping) yaparak istediğimiz verilere ulaşacağız.
-- Bunun için "https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi" websitesi üzerinden tablo haline getirilmiş hazır YÜFE veri setini çekeceğiz.
-- Aşağıda da yer alan calculate_screen class'ı içerisindeki 'fetchYufeIndex' fonksiyonu ile bu işlemi gerçekleştiriyoruz.
+- In this section, instead of using an API to access the CPI data, we will use web scraping to extract the required data from a table on the website "https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi".
+- The 'fetchYufeIndex' function in the calculate_screen.dart class file handles this process.
   
   ```
   Future<String> fetchYufeIndex(DateTime selectedDate) async {
@@ -83,7 +82,7 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
     }
   }
   ```
-- Son olarak işlem yapıldığı günün dolar kurunu çekmek için gerekli kodları ekliyoruz.
+- Lastly, we add the necessary code to fetch the exchange rate on the day the transaction was made.
 
     ```
   Future<String> fetchExchangeRate(DateTime date) async {
@@ -112,11 +111,11 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
   }
     ```
 
-##  Kullanıcı Veri Girişi
+##  User Data Input
 
-- Kullanıcıdan alınan veriler.
+- User-input data.
 
-| Parametre | Tür     |   
+| Parameter | Type     |   
 | :-------- | :------- | 
 | `buyStockPrice`      | `double` |
 | `buyStockQuantity`      | `double` |
@@ -128,21 +127,18 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 | `sellStockQuantity`      | `double` |
 | `_sellSelectedDate`      | `DateTime` |
 
-## Tasarım Aşamaları
+## Design Stages
+
 <div style="display:flex; justify-content: space-between; align-items: center;">
   
-- Uygulamayı öncelikle alınacak verileri düşünerek paint üzerinden basit bir tasarım yaptım. Sonrasında Figma'yı kullanarak ilk kullanıcı arayüzünü hazırladım.
-
+- Initially, I created a simple design using paint by considering the data to be acquired. Then, using Figma, I created the initial user interface.
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number0_tr_page.png" alt="Text" width="250" height="600">
  <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number1_tr_page.png" alt="alt text" width="250" height="600">
 
-- Figma'yı kullanarak kullanıcı arayüzü tasarımını geliştirdim. Geliştirdiğim son tasarımımı uygulamak üzere Flutter'ın özelliklerini de kullanarak son haline getirdim.
+- I designed the user interface using Figma and finalized it by implementing the features of Flutter to bring it to its final form.
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number2_tr_page.jpg" alt="alt text" width="250" height="600">
 <img src="https://github.com/emreozsoy/flutter-foreign-stock-tax-calculator/blob/main/Design_number3_tr_page.png" alt="alt text" width="250" height="600">
 </div>
-
-
-
 
 ## Authors
 
