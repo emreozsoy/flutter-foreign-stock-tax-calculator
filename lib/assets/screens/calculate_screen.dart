@@ -8,13 +8,16 @@ import 'package:html/parser.dart' as parser;
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:get_data/custom_text.dart';
+
 class Calculate_Screen extends StatefulWidget {
   final int whichShare;
   final int processCount;
   late int flagProcessCount;
 
-  Calculate_Screen({required this.whichShare, required this.processCount,
-    required this.flagProcessCount});
+  Calculate_Screen(
+      {required this.whichShare,
+      required this.processCount,
+      required this.flagProcessCount});
   @override
   _Calculate_ScreenState createState() => _Calculate_ScreenState();
 }
@@ -29,11 +32,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
   //FAZLA BÜYÜK SAYI GİRİLMESİNE UYARI SİSTEMİ EKLE
   //NOT BIRAKMAYI UNUTMA ÇOK İŞE YARIYORLAR
 
-    //SON KISIMLARDAYIZ:
-    //GÜZEL BİR READ.ME yapmaya başla
-    //Gerçekci ol bu kodu paylaşıp
+  //SON KISIMLARDAYIZ:
+  //GÜZEL BİR READ.ME yapmaya başla
+  //Gerçekci ol bu kodu paylaşıp
 
-   String yourAPI= "3uMaWC6vsa";
+  String yourAPI = "3uMaWC6vsa";
   String? selectedValue;
   int firstBuyStock = 0;
 
@@ -44,38 +47,37 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
   List<double> sellStockPrice = <double>[0, 0, 0, 0, 0, 0];
   List<double> sellStockQuantity = <double>[0, 0, 0, 0, 0, 0];
 
-  String processDate="İşlem Tarihi";
-
+  String processDate = "İşlem Tarihi";
 
   //Seçilen tarihleri göstermek için liste
   // listeden fazla işlem yapılmamalı
-    List<DateTime>  _buySelectedDate = <DateTime>[
-     DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-      DateTime(0000,00,00),
-    ];
-  List<DateTime>  _sellSelectedDate = <DateTime>[
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
-    DateTime(0000,00,00),
+  List<DateTime> _buySelectedDate = <DateTime>[
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+  ];
+  List<DateTime> _sellSelectedDate = <DateTime>[
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
+    DateTime(0000, 00, 00),
   ];
 
   var _buyExchangeRate = <String>["", "", "", "", "", "", "", "", "", ""];
@@ -92,11 +94,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
   int sellDropDownValue = 1;
   bool _visible = false;
 
-  Future<String> fetchUfeIndex(DateTime selectedDate) async {
+  Future<String> fetchYufeIndex(DateTime selectedDate) async {
     final url =
         'https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi';
     final response = await http.get(Uri.parse(url));
-    List<String> monthConvert = [
+    const List<String> monthConvert = [
       'OCAK',
       'ŞUBAT',
       'MART',
@@ -126,16 +128,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
           .querySelector(
               'body > section > div > div > div > div > table > thead > tr')
           ?.children;
-      if (yi_ufes != null && months != null) {
-        for (final month in months) {
-          if (month == monthConvert[selectedDate.month - 1]) {
-            print(month.text);
-          }
-        }
-        for (final yi_ufe in yi_ufes) {
-          print(yi_ufe.text);
-        }
-      }
 
       //Seçilen tarihin bir önceki ayını al. Eğer Ocak ise seçilen ay, Geçen yılın 12. ayını al
       if (selectedDate.month != 1) {
@@ -152,11 +144,9 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     }
   }
 
-
   //refactor this code part
   //not eligible  to use in the future
   int whichYear(DateTime year) {
-
     switch (year.year) {
       case 2024:
         return 1;
@@ -217,7 +207,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
       if (data['items'] != null && data['items'].isNotEmpty) {
         final exchangeRate = data['items'][0]['TP_DK_USD_A'];
 
-
         if (exchangeRate == "null" || exchangeRate == null) {
           fetchExchangeRate(date);
         } else {
@@ -242,7 +231,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     DateTime holdDate;
     holdDate = selectedDate.subtract(Duration(days: 30));
 
-    fetchUfeIndex(holdDate).then((ufeIndex) {
+    fetchYufeIndex(holdDate).then((ufeIndex) {
       setState(() {
         final numberFormat = NumberFormat
             .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
@@ -258,7 +247,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     DateTime holdDate;
     holdDate = selectedDate.subtract(Duration(days: 30));
 
-    fetchUfeIndex(holdDate).then((ufeIndex) {
+    fetchYufeIndex(holdDate).then((ufeIndex) {
       setState(() {
         final numberFormat = NumberFormat
             .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
@@ -296,14 +285,14 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.black),
-
-        onPressed: () {
-          //TextInput açıldıktan sonra geri butonuna tıklandığında, telefon klavyesini kapatması için
-          SystemChannels.textInput.invokeMethod('TextInput.hide').then((value) => Navigator.of(context).pop());
-
-        } ,
-      ),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            //TextInput açıldıktan sonra geri butonuna tıklandığında, telefon klavyesini kapatması için
+            SystemChannels.textInput
+                .invokeMethod('TextInput.hide')
+                .then((value) => Navigator.of(context).pop());
+          },
+        ),
         backgroundColor: Color.fromRGBO(46, 204, 113, 1),
         title: Text('${widget.processCount}. Hisse İşlemleri',
             textAlign: TextAlign.start,
@@ -318,13 +307,17 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: phoneHeight * 0.008),
-
-                ElevatedText(text: 'Alım İşlemleri',phoneHeight:phoneHeight ,phoneWidth: phoneWidth,),
+                ElevatedText(
+                  text: 'Alım İşlemleri',
+                  phoneHeight: phoneHeight,
+                  phoneWidth: phoneWidth,
+                ),
                 SizedBox(height: phoneHeight * 0.005),
                 Visibility(
                   visible: widget.whichShare == 1,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(//l,t,r,b
+                    padding: EdgeInsets.fromLTRB(
+                        //l,t,r,b
                         phoneWidth * 0.09,
                         phoneHeight * 0.01,
                         phoneWidth * 0.08,
@@ -340,7 +333,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                             child: DropdownButtonFormField2<String>(
                               isExpanded: true,
                               decoration: InputDecoration(
-
                                 hoverColor: Colors.green,
                                 filled: true,
                                 fillColor: CupertinoColors.systemGrey4,
@@ -379,7 +371,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                 return null;
                               },
                               onChanged: (value) {
-                                widget.flagProcessCount = int. parse(value!);
+                                widget.flagProcessCount = int.parse(value!);
                               },
                               onSaved: (value) {
                                 selectedValue = value.toString();
@@ -484,7 +476,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                   style: ElevatedText.buildJosefinSans(0.5, 16),
                                 ),
                               ),
-                              items: list.map<DropdownMenuItem<int>>((int value) {
+                              items:
+                                  list.map<DropdownMenuItem<int>>((int value) {
                                 return DropdownMenuItem<int>(
                                   alignment: Alignment.center,
                                   value: value,
@@ -654,7 +647,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                           NumberFormat.decimalPattern();
                                       final parsedValue =
                                           numberFormat.parse(value);
-                                      buyStockQuantity[0] = parsedValue.toDouble();
+                                      buyStockQuantity[0] =
+                                          parsedValue.toDouble();
                                     });
                                   },
                                 ),
@@ -677,9 +671,13 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                       createBuyProcess(bDropDownValue, phoneWidth, phoneHeight),
                 ),
                 Container(
-                    child: Image.asset("lib/assets/images/img_dividetwopart.png")),
-                ElevatedText(text: 'Satış İşlemleri',phoneHeight:phoneHeight ,phoneWidth: phoneWidth,),
-
+                    child:
+                        Image.asset("lib/assets/images/img_dividetwopart.png")),
+                ElevatedText(
+                  text: 'Satış İşlemleri',
+                  phoneHeight: phoneHeight,
+                  phoneWidth: phoneWidth,
+                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                       phoneWidth * 0.1,
@@ -696,7 +694,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                             decoration: InputDecoration(
                               hoverColor: Colors.green,
                               contentPadding:
-                              const EdgeInsets.symmetric(vertical: 12),
+                                  const EdgeInsets.symmetric(vertical: 12),
                               filled: true,
                               fillColor: CupertinoColors.systemGrey4,
                               border: OutlineInputBorder(
@@ -748,7 +746,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                         ),
                         Padding(
                           padding:
-                          EdgeInsets.fromLTRB(phoneWidth * 0.025, 0, 0, 0),
+                              EdgeInsets.fromLTRB(phoneWidth * 0.025, 0, 0, 0),
                           child: Image(
                             // EĞER DİLİ EN İSE RESİM DEĞİŞMELİ !!!!
                             image: changeIcon(0),
@@ -851,7 +849,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                   decoration: InputDecoration(
                                     labelText: ('Hisse Değerini Girin: '),
                                     contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     filled: true,
                                     fillColor: CupertinoColors.systemGrey4,
                                     border: OutlineInputBorder(
@@ -864,10 +862,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                   onChanged: (value) {
                                     setState(() {
                                       final numberFormat =
-                                      NumberFormat.decimalPattern();
+                                          NumberFormat.decimalPattern();
                                       final parsedValue =
-                                      numberFormat.parse(value);
-                                      sellStockPrice[0] = parsedValue.toDouble();
+                                          numberFormat.parse(value);
+                                      sellStockPrice[0] =
+                                          parsedValue.toDouble();
                                     });
                                   },
                                 ),
@@ -885,7 +884,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                   decoration: InputDecoration(
                                     labelText: ('Hisse Miktarını Girin: '),
                                     contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 20.0),
+                                        EdgeInsets.symmetric(horizontal: 20.0),
                                     filled: true,
                                     fillColor: CupertinoColors.systemGrey4,
                                     border: OutlineInputBorder(
@@ -898,10 +897,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                   onChanged: (value) {
                                     setState(() {
                                       final numberFormat =
-                                      NumberFormat.decimalPattern();
+                                          NumberFormat.decimalPattern();
                                       final parsedValue =
-                                      numberFormat.parse(value);
-                                      sellStockQuantity[0] = parsedValue.toDouble();
+                                          numberFormat.parse(value);
+                                      sellStockQuantity[0] =
+                                          parsedValue.toDouble();
                                     });
                                   },
                                 ),
@@ -914,11 +914,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 16.0),
-
                 createSellProcess(sDropDownValue, phoneWidth, phoneHeight),
-
               ],
             ),
           ),
@@ -928,28 +925,24 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
         padding: EdgeInsets.all(20),
         child: FloatingActionButton(
           onPressed: () {
-
-           // calculateTax();
+            // calculateTax();
 
             setState(() {
-          //BURAYI İF İLE İKEYİ AYIRIP EĞER KULLANICI İŞLEMLERİ BİTTİYSE SONUÇ EKRANINA
+              //BURAYI İF İLE İKEYİ AYIRIP EĞER KULLANICI İŞLEMLERİ BİTTİYSE SONUÇ EKRANINA
               //DEVAMSA AŞAĞIDAKİ EKRANDAN DEVAM ETMESİNE YOLLAMAK GEREKLİ
               //AYRICA ÖNCEKİ EKRANDAN KAZANÇ KAYIP DATASINI ALIP BURAYA VERMEK GEREKLİ
 
-
               //ekranı tasarlayıp çıktıyı ver
-              if(widget.processCount == widget.flagProcessCount){
+              if (widget.processCount == widget.flagProcessCount) {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
                     transitionDuration: Duration(milliseconds: 500),
-                    transitionsBuilder: (context, animation,
-                        secondaryAnimation, child) {
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       return SlideTransition(
                         position: animation.drive(
-                          Tween(
-                              begin: Offset(1.0, 0.0),
-                              end: Offset.zero)
+                          Tween(begin: Offset(1.0, 0.0), end: Offset.zero)
                               .chain(
                             CurveTween(curve: Curves.easeOut),
                           ),
@@ -957,25 +950,25 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                         child: child,
                       );
                     },
-                    pageBuilder:
-                        (context, animation, secondaryAnimation) {
-                      return Calculate_Screen(whichShare: 1,processCount: widget.processCount , flagProcessCount: widget.flagProcessCount,);
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return Calculate_Screen(
+                        whichShare: 1,
+                        processCount: widget.processCount,
+                        flagProcessCount: widget.flagProcessCount,
+                      );
                     },
                   ),
                 );
-              }
-              else{
+              } else {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
                     transitionDuration: Duration(milliseconds: 500),
-                    transitionsBuilder: (context, animation,
-                        secondaryAnimation, child) {
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       return SlideTransition(
                         position: animation.drive(
-                          Tween(
-                              begin: Offset(1.0, 0.0),
-                              end: Offset.zero)
+                          Tween(begin: Offset(1.0, 0.0), end: Offset.zero)
                               .chain(
                             CurveTween(curve: Curves.easeOut),
                           ),
@@ -983,14 +976,16 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                         child: child,
                       );
                     },
-                    pageBuilder:
-                        (context, animation, secondaryAnimation) {
-                      return Calculate_Screen(whichShare: 1,processCount: widget.processCount , flagProcessCount: widget.flagProcessCount,);
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return Calculate_Screen(
+                        whichShare: 1,
+                        processCount: widget.processCount,
+                        flagProcessCount: widget.flagProcessCount,
+                      );
                     },
                   ),
                 );
               }
-
             });
           },
           backgroundColor: Colors.black38,
@@ -1003,7 +998,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
       ),
     );
   }
-
 
   //calculate taxi ikiye böl biri alış işlemleri için diğeri satış işlemleri için olsun
   //en son tüm hesaplamalar için de ayrı bir fonskiyonda bunları çağır
@@ -1072,60 +1066,52 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     }
   }
 
-
-
-  Text showDateText (DateTime selectDate) {
-
-  setState(() {
-
-  });
-  if (selectDate != DateTime(0000,00,00)) {
-    return Text(
-      "${selectDate.day}/${ selectDate.month}/${selectDate.year}",
-      style: TextStyle(
-        color: Colors.black,
-      ),
-    );
-  }
-  else {
-     return Text(
-      processDate,
-      style: TextStyle(
-        color: Colors.black,
-      ),
-
-    );
+  Text showDateText(DateTime selectDate) {
+    setState(() {});
+    if (selectDate != DateTime(0000, 00, 00)) {
+      return Text(
+        "${selectDate.day}/${selectDate.month}/${selectDate.year}",
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      );
+    } else {
+      return Text(
+        processDate,
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      );
+    }
   }
 
-
-  }
-
-  Widget createSellProcess(int dropdown, double phoneWidth, double phoneHeight) {
-
-
+  Widget createSellProcess(
+      int dropdown, double phoneWidth, double phoneHeight) {
     List<Widget> columns = [];
 
     if (dropdown > 1) {
       for (int i = 1; i < dropdown; i++) {
         columns.add(
-
           Column(
-            children:[
-              Container(
-                  child: Image.asset("lib/assets/images/image-next.png")),
+            children: [
+              Container(child: Image.asset("lib/assets/images/image-next.png")),
               Padding(
-                padding: EdgeInsets.fromLTRB(phoneWidth * 0.01, phoneHeight * 0.01,
-                    phoneWidth * 0.01, phoneHeight * 0.01),
+                padding: EdgeInsets.fromLTRB(phoneWidth * 0.01,
+                    phoneHeight * 0.01, phoneWidth * 0.01, phoneHeight * 0.01),
                 child: Container(
                   width: phoneWidth * 0.9,
                   height: phoneHeight * 0.35,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(90), // Reduced border radius for a more subtle curve
+                    borderRadius: BorderRadius.circular(
+                        90), // Reduced border radius for a more subtle curve
                     color: Color.fromRGBO(46, 204, 113, 1),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(phoneWidth * 0.08,
-                        phoneHeight * 0.01, phoneWidth * 0.08, phoneWidth * 0.08),
+                    padding: EdgeInsets.fromLTRB(
+                        phoneWidth * 0.08,
+                        phoneHeight * 0.01,
+                        phoneWidth * 0.08,
+                        phoneWidth * 0.08),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1134,7 +1120,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text("${(i+1)}. Satım İşlemi",
+                            Text("${(i + 1)}. Satım İşlemi",
                                 style: ElevatedText.buildJosefinSans(0.5, 24),
                                 textAlign: TextAlign.center)
                           ],
@@ -1142,41 +1128,42 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                         Padding(
                           padding: EdgeInsets.only(top: phoneHeight * 0.01),
                           child: Row(
-                            children:[ ElevatedButton(
-                              onPressed: () {
-                                showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2005),
-                                  lastDate: DateTime.now(),
-                                ).then((mselectedDate) async {
-                                  if (mselectedDate != null) {
-                                    setState(() {
-                                      _sellSelectedDate[i] = mselectedDate;
-                                      getUFEIndex(mselectedDate, i);
-                                      getExchangeRate(mselectedDate, i);
-                                    });
-                                  }
-                                });
-                              },
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        15), // Adjusted button border radius
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2005),
+                                    lastDate: DateTime.now(),
+                                  ).then((mselectedDate) async {
+                                    if (mselectedDate != null) {
+                                      setState(() {
+                                        _sellSelectedDate[i] = mselectedDate;
+                                        getUFEIndex(mselectedDate, i);
+                                        getExchangeRate(mselectedDate, i);
+                                      });
+                                    }
+                                  });
+                                },
+                                style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          15), // Adjusted button border radius
+                                    ),
                                   ),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      CupertinoColors.systemGrey4),
+                                  minimumSize: MaterialStateProperty.all(Size(
+                                      phoneWidth * 0.5,
+                                      phoneHeight *
+                                          0.05)), // Adjusted the minimum size for the button
                                 ),
-                                backgroundColor: MaterialStateProperty.all(
-                                    CupertinoColors.systemGrey4),
-                                minimumSize: MaterialStateProperty.all(Size(
-                                    phoneWidth * 0.5,
-                                    phoneHeight *
-                                        0.05)), // Adjusted the minimum size for the button
+                                child: showDateText(_sellSelectedDate[i]),
                               ),
-                              child: showDateText(_sellSelectedDate[i]),
-                            ),
                               Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Image.asset(
@@ -1201,14 +1188,14 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                       ),*/
                         SizedBox(height: 20),
                         Row(
-                          children:[
+                          children: [
                             Expanded(
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                   labelText: ('Hisse Değerini Girin'),
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 16.0),
+                                      EdgeInsets.symmetric(horizontal: 16.0),
                                   filled: true,
                                   fillColor: CupertinoColors.systemGrey4,
                                   border: OutlineInputBorder(
@@ -1216,31 +1203,33 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                 ),
-                                keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
                                 onChanged: (value) {
                                   setState(() {
-                                    final numberFormat = NumberFormat.decimalPattern();
-                                    final parsedValue = numberFormat.parse(value);
+                                    final numberFormat =
+                                        NumberFormat.decimalPattern();
+                                    final parsedValue =
+                                        numberFormat.parse(value);
                                     sellStockPrice[i] = parsedValue.toDouble();
                                   });
                                 },
                               ),
                             ),
-                          ],),
+                          ],
+                        ),
                         const SizedBox(height: 16.0),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
-                          children:[
+                          children: [
                             Expanded(
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                   labelText: 'Hisse Miktarı Girin',
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
+                                      EdgeInsets.symmetric(horizontal: 20.0),
                                   filled: true,
                                   fillColor: CupertinoColors.systemGrey4,
                                   border: OutlineInputBorder(
@@ -1248,18 +1237,22 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                 ),
-                                keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
                                 onChanged: (value) {
                                   setState(() {
-                                    final numberFormat = NumberFormat.decimalPattern();
-                                    final parsedValue = numberFormat.parse(value);
-                                    sellStockQuantity[i] = parsedValue.toDouble();
+                                    final numberFormat =
+                                        NumberFormat.decimalPattern();
+                                    final parsedValue =
+                                        numberFormat.parse(value);
+                                    sellStockQuantity[i] =
+                                        parsedValue.toDouble();
                                   });
                                 },
                               ),
                             ),
-                          ],),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -1278,20 +1271,17 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
   }
 
   Widget createBuyProcess(int dropdown, double phoneWidth, double phoneHeight) {
-
-        List<Widget> columns = [];
+    List<Widget> columns = [];
 
     if (dropdown > 1) {
       for (int i = 1; i < dropdown; i++) {
         columns.add(
-
           Column(
-            children:[
-              Container(
-                  child: Image.asset("lib/assets/images/image-next.png")),
+            children: [
+              Container(child: Image.asset("lib/assets/images/image-next.png")),
               Padding(
-                padding: EdgeInsets.fromLTRB(phoneWidth * 0.01, phoneHeight * 0.01,
-                    phoneWidth * 0.01, phoneHeight * 0.01),
+                padding: EdgeInsets.fromLTRB(phoneWidth * 0.01,
+                    phoneHeight * 0.01, phoneWidth * 0.01, phoneHeight * 0.01),
                 child: Container(
                   width: phoneWidth * 0.9,
                   height: phoneHeight * 0.35,
@@ -1301,8 +1291,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                     color: Color.fromRGBO(46, 204, 113, 1),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(phoneWidth * 0.08,
-                        phoneHeight * 0.01, phoneWidth * 0.08, phoneWidth * 0.08),
+                    padding: EdgeInsets.fromLTRB(
+                        phoneWidth * 0.08,
+                        phoneHeight * 0.01,
+                        phoneWidth * 0.08,
+                        phoneWidth * 0.08),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1311,7 +1304,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text("${(i+1)}. Alış İşlemi",
+                            Text("${(i + 1)}. Alış İşlemi",
                                 style: ElevatedText.buildJosefinSans(0.5, 24),
                                 textAlign: TextAlign.center)
                           ],
@@ -1319,41 +1312,42 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                         Padding(
                           padding: EdgeInsets.only(top: phoneHeight * 0.01),
                           child: Row(
-                            children:[ ElevatedButton(
-                              onPressed: () {
-                                showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2005),
-                                  lastDate: DateTime.now(),
-                                ).then((mselectedDate) async {
-                                  if (mselectedDate != null) {
-                                    setState(() {
-                                      _buySelectedDate[i] = mselectedDate;
-                                      getUFEIndex(mselectedDate, i);
-                                      getExchangeRate(mselectedDate, i);
-                                    });
-                                  }
-                                });
-                              },
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        15), // Adjusted button border radius
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2005),
+                                    lastDate: DateTime.now(),
+                                  ).then((mselectedDate) async {
+                                    if (mselectedDate != null) {
+                                      setState(() {
+                                        _buySelectedDate[i] = mselectedDate;
+                                        getUFEIndex(mselectedDate, i);
+                                        getExchangeRate(mselectedDate, i);
+                                      });
+                                    }
+                                  });
+                                },
+                                style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          15), // Adjusted button border radius
+                                    ),
                                   ),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      CupertinoColors.systemGrey4),
+                                  minimumSize: MaterialStateProperty.all(Size(
+                                      phoneWidth * 0.5,
+                                      phoneHeight *
+                                          0.05)), // Adjusted the minimum size for the button
                                 ),
-                                backgroundColor: MaterialStateProperty.all(
-                                    CupertinoColors.systemGrey4),
-                                minimumSize: MaterialStateProperty.all(Size(
-                                    phoneWidth * 0.5,
-                                    phoneHeight *
-                                        0.05)), // Adjusted the minimum size for the button
+                                child: showDateText(_buySelectedDate[i]),
                               ),
-                              child:showDateText(_buySelectedDate[i]),
-                            ),
                               Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Image.asset(
@@ -1378,14 +1372,14 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                       ),*/
                         SizedBox(height: 20),
                         Row(
-                          children:[
+                          children: [
                             Expanded(
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                   labelText: ('Hisse Değerini Girin'),
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 16.0),
+                                      EdgeInsets.symmetric(horizontal: 16.0),
                                   filled: true,
                                   fillColor: CupertinoColors.systemGrey4,
                                   border: OutlineInputBorder(
@@ -1393,31 +1387,34 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                 ),
-                                keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
                                 onChanged: (value) {
                                   setState(() {
-                                    final numberFormat = NumberFormat.decimalPattern();
-                                    final parsedValue = numberFormat.parse(value);
-                                    buyStockQuantity[i] = parsedValue.toDouble();
+                                    final numberFormat =
+                                        NumberFormat.decimalPattern();
+                                    final parsedValue =
+                                        numberFormat.parse(value);
+                                    buyStockQuantity[i] =
+                                        parsedValue.toDouble();
                                   });
                                 },
                               ),
                             ),
-                          ],),
+                          ],
+                        ),
                         SizedBox(height: 16.0),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
-                          children:[
+                          children: [
                             Expanded(
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                   labelText: 'Hisse Miktarı Girin',
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20.0),
+                                      EdgeInsets.symmetric(horizontal: 20.0),
                                   filled: true,
                                   fillColor: CupertinoColors.systemGrey4,
                                   border: OutlineInputBorder(
@@ -1425,18 +1422,22 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                 ),
-                                keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
                                 onChanged: (value) {
                                   setState(() {
-                                    final numberFormat = NumberFormat.decimalPattern();
-                                    final parsedValue = numberFormat.parse(value);
-                                    buyStockQuantity[i] = parsedValue.toDouble();
+                                    final numberFormat =
+                                        NumberFormat.decimalPattern();
+                                    final parsedValue =
+                                        numberFormat.parse(value);
+                                    buyStockQuantity[i] =
+                                        parsedValue.toDouble();
                                   });
                                 },
                               ),
                             ),
-                          ],),
+                          ],
+                        ),
                       ],
                     ),
                   ),
