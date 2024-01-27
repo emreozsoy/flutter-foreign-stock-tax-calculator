@@ -90,28 +90,16 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
 
   late int bDropDownValue = 1;
   late int sDropDownValue = 1;
-  int? buyDropDownValue;
+  int buyDropDownValue= 1;
   int sellDropDownValue = 1;
   bool _visible = false;
 
-  Future<String> fetchYufeIndex(DateTime selectedDate) async {
+
+  Future<String> fetchBuyYufeIndex(DateTime selectedDate) async {
     final url =
         'https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi';
     final response = await http.get(Uri.parse(url));
-    const List<String> monthConvert = [
-      'OCAK',
-      'ŞUBAT',
-      'MART',
-      'NİSAN',
-      'MAYIS',
-      'HAZİRAN',
-      'TEMMUZ',
-      'AĞUSTOS',
-      'EYLÜL',
-      'EKİM',
-      'KASIM',
-      'ARALIK'
-    ];
+
     if (response.statusCode == 200) {
       int year = whichYear(selectedDate);
       final htmlData = response.body;
@@ -124,10 +112,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
               'body > section > div > div > div > div > table > tbody > tr:nth-child($year)')
           ?.children;
 
-      final months = document
-          .querySelector(
-              'body > section > div > div > div > div > table > thead > tr')
-          ?.children;
+    //  final months = document.querySelector('body > section > div > div > div > div > table > thead > tr')?.children;
 
       //Seçilen tarihin bir önceki ayını al. Eğer Ocak ise seçilen ay, Geçen yılın 12. ayını al
       if (selectedDate.month != 1) {
@@ -136,6 +121,40 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
         final yi_ufes = document
             .querySelector(
                 'body > section > div > div > div > div > table > tbody > tr:nth-child(${year - 1})')
+            ?.children;
+        return yi_ufes![selectedDate.month + 10].text;
+      }
+    } else {
+      throw Exception('Failed to fetch UFE data');
+    }
+  }
+
+  Future<String> fetchSellYufeIndex(DateTime selectedDate) async {
+    final url =
+        'https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      int year = whichYear(selectedDate);
+      final htmlData = response.body;
+      final document = parser.parse(htmlData);
+
+      // İlgili tablonun HTML yapısını inceleyerek verileri çekin
+
+      final yi_ufes = document
+          .querySelector(
+          'body > section > div > div > div > div > table > tbody > tr:nth-child($year)')
+          ?.children;
+
+      //  final months = document.querySelector('body > section > div > div > div > div > table > thead > tr')?.children;
+
+      //Seçilen tarihin bir önceki ayını al. Eğer Ocak ise seçilen ay, Geçen yılın 12. ayını al
+      if (selectedDate.month != 1) {
+        return yi_ufes![selectedDate.month].text;
+      } else {
+        final yi_ufes = document
+            .querySelector(
+            'body > section > div > div > div > div > table > tbody > tr:nth-child(${year - 1})')
             ?.children;
         return yi_ufes![selectedDate.month + 10].text;
       }
@@ -194,7 +213,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
   }
 
   Future<String> fetchExchangeRate(DateTime date) async {
-    date = date.subtract(Duration(days: 1));
     final formattedDate =
         '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     final url =
@@ -227,11 +245,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     return fetchExchangeRate(fridayDate);
   }
 */
-  void getUFEIndex(DateTime selectedDate, int i) {
+  void getBuyUFEIndex(DateTime selectedDate, int i) {
     DateTime holdDate;
     holdDate = selectedDate.subtract(Duration(days: 30));
 
-    fetchYufeIndex(holdDate).then((ufeIndex) {
+    fetchBuyYufeIndex(holdDate).then((ufeIndex) {
       setState(() {
         final numberFormat = NumberFormat
             .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
@@ -243,11 +261,13 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     });
   }
 
+
+
   void getSellUFEIndex(DateTime selectedDate, int i) {
     DateTime holdDate;
     holdDate = selectedDate.subtract(Duration(days: 30));
 
-    fetchYufeIndex(holdDate).then((ufeIndex) {
+    fetchSellYufeIndex(holdDate).then((ufeIndex) {
       setState(() {
         final numberFormat = NumberFormat
             .decimalPattern(); // Sayı biçimlendirme için NumberFormat kullanılır
@@ -259,7 +279,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
     });
   }
 
-  void getExchangeRate(DateTime selectedDate, int i) async {
+  void getBuyExchangeRate(DateTime selectedDate, int i) async {
     _buyExchangeRate[i] = await fetchExchangeRate(selectedDate);
     if (_buyExchangeRate[i] == "null" || _buyExchangeRate[i] == "") {
       selectedDate = selectedDate.subtract(Duration(days: 1));
@@ -553,8 +573,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                       lastDate: DateTime.now(),
                                     ).then((selectedDate) async {
                                       if (selectedDate != null) {
-                                        getUFEIndex(selectedDate, 0);
-                                        getExchangeRate(selectedDate, 0);
+                                        getBuyUFEIndex(selectedDate, 0);
+                                        getBuyExchangeRate(selectedDate, 0);
                                         _buySelectedDate[0] = selectedDate;
                                         //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
                                       }
@@ -704,7 +724,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                               // Adjust the height to center the hint text vertically
                               isDense: true,
                             ),
-                            value: buyDropDownValue,
+                            value: sellDropDownValue,
                             icon: Icon(
                               Icons.keyboard_arrow_down_sharp,
                               color: Colors.black,
@@ -803,11 +823,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2005),
                                       lastDate: DateTime.now(),
-                                    ).then((selectedDate) async {
-                                      if (selectedDate != null) {
-                                        getUFEIndex(selectedDate, 0);
-                                        getExchangeRate(selectedDate, 0);
-                                        _sellSelectedDate[0] = selectedDate;
+                                    ).then((mselectedDate) async {
+                                      if (mselectedDate != null) {
+                                        getBuyUFEIndex(mselectedDate, 0);
+                                        getSellExchangeRate(mselectedDate, 0);
+                                        _sellSelectedDate[0] = mselectedDate;
                                         //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
                                       }
                                     });
@@ -925,14 +945,11 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
         padding: EdgeInsets.all(20),
         child: FloatingActionButton(
           onPressed: () {
-            // calculateTax();
+             calculateTax();
 
             setState(() {
-              //BURAYI İF İLE İKEYİ AYIRIP EĞER KULLANICI İŞLEMLERİ BİTTİYSE SONUÇ EKRANINA
-              //DEVAMSA AŞAĞIDAKİ EKRANDAN DEVAM ETMESİNE YOLLAMAK GEREKLİ
-              //AYRICA ÖNCEKİ EKRANDAN KAZANÇ KAYIP DATASINI ALIP BURAYA VERMEK GEREKLİ
+              //Sonuç Ekranı tasarlayıp çıktıyı göster
 
-              //ekranı tasarlayıp çıktıyı ver
               if (widget.processCount == widget.flagProcessCount) {
                 Navigator.push(
                   context,
@@ -1001,48 +1018,35 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
 
   //calculate taxi ikiye böl biri alış işlemleri için diğeri satış işlemleri için olsun
   //en son tüm hesaplamalar için de ayrı bir fonskiyonda bunları çağır
+  //fix calculate function
+
   void calculateTax() {
     double buySum = 0;
     double sellSum = 0;
-    /* buySum =  (buyStockCount! * buyStockPrice! * double.parse(_exchangeRate[0]));
-      sellSum =  (sellStockCount! * sellStockPrice! * double.parse(_exchangeRate[0]));
-
-      print(sellSum);
-      print(buySum);
-      double sum = sellSum - buySum;
-      String result = sum.toStringAsFixed(4); // virgülden sonra 4 haneyi yazar
-      print(result);
-      */
-    /*while(x<5){
-        print("exchangerate[$x] = ${_exchangeRate[x]}");
-        print("ufeındex[$x]=${_ufeIndex[x]}");
-        x++;
-      }
-       */
 
     // Alış işlemleri
     for (int i = 0; i < bDropDownValue; i++) {
-      double buyMaliyet = buyStockPrice[i] *
-          buyStockQuantity[i] *
-          double.parse(_buyExchangeRate[i]);
+
+
+      double buyMaliyet = buyStockPrice[i] * buyStockQuantity[i] *  double.parse(_buyExchangeRate[i]);
 
       // Alış maliyetini enflasyon ile endeksleme
       if (_buyUfeIndex[i] > 1.1) {
-        double inflationRate =
-            (_buyUfeIndex[i] - 1) * 100; // Yİ-ÜFE artış oranı hesaplama
+        double inflationRate =  (_buyUfeIndex[i]) * 100; // Yİ-ÜFE artış oranı hesaplama
         buyMaliyet *= inflationRate / 100; // Alış maliyetini endeksleme
       }
 
       buySum += buyMaliyet;
+
     }
 
+
     // Satış işlemleri
-    for (int i = 0; i < sellDropDownValue; i++) {
-      double sellMaliyet = sellStockPrice[i] *
-          sellStockQuantity[i] *
-          double.parse(_sellExchangeRate[i]);
+    for (int i = 0; i < sDropDownValue; i++) {
+      double sellMaliyet = sellStockPrice[i] * sellStockQuantity[i] * double.parse(_sellExchangeRate[i]);
       sellSum += sellMaliyet;
     }
+    print("Sell Sum: $sellSum");
 
     double karZarar = sellSum - buySum;
 
@@ -1054,7 +1058,7 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
       print('Vergi Borcu: $vergi TL');
     } else {
       print('Kazanç yok');
-      print('Vergi Borcunuz "0"TL ');
+      print('Vergi Borcunuz $karZarar TL ');
     }
   }
 
@@ -1140,8 +1144,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     if (mselectedDate != null) {
                                       setState(() {
                                         _sellSelectedDate[i] = mselectedDate;
-                                        getUFEIndex(mselectedDate, i);
-                                        getExchangeRate(mselectedDate, i);
+                                        getBuyUFEIndex(mselectedDate, i);
+                                        getSellExchangeRate(mselectedDate, i);
                                       });
                                     }
                                   });
@@ -1324,8 +1328,8 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                     if (mselectedDate != null) {
                                       setState(() {
                                         _buySelectedDate[i] = mselectedDate;
-                                        getUFEIndex(mselectedDate, i);
-                                        getExchangeRate(mselectedDate, i);
+                                        getBuyUFEIndex(mselectedDate, i);
+                                        getBuyExchangeRate(mselectedDate, i);
                                       });
                                     }
                                   });

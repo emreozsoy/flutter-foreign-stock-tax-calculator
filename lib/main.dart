@@ -235,7 +235,7 @@ class _MainPageState extends State<MainPage> {
                       ..hideCurrentSnackBar()
                       ..showSnackBar(snackBar);
                   },
-                  child: Text("İletişim Bilgileri"),
+                  child: Text("İletişim Bilgileri", style: TextStyle(color: Colors.black),),
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
