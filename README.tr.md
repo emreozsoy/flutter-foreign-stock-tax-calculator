@@ -46,20 +46,7 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
     final url =
         'https://www.hakedis.org/endeksler/yi-ufe-yurtici-uretici-fiyat-endeksi';
     final response = await http.get(Uri.parse(url));
-    const List<String> monthConvert = [
-      'OCAK',
-      'ŞUBAT',
-      'MART',
-      'NİSAN',
-      'MAYIS',
-      'HAZİRAN',
-      'TEMMUZ',
-      'AĞUSTOS',
-      'EYLÜL',
-      'EKİM',
-      'KASIM',
-      'ARALIK'
-    ];
+  
     if (response.statusCode == 200) {
       int year = whichYear(selectedDate);
       final htmlData = response.body;
