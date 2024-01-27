@@ -28,15 +28,9 @@ void main() {
 }
 
 class _Calculate_ScreenState extends State<Calculate_Screen> {
-  //İngilizce DİL DESTEĞİ İÇİN 2 FARKLI TEXT LİSTESİ OLUŞTURUP DURUMA GÖRE HANGİSİNİN VERİLMESİ GEREKTİĞİNİ YAZ
   //FAZLA BÜYÜK SAYI GİRİLMESİNE UYARI SİSTEMİ EKLE
-  //NOT BIRAKMAYI UNUTMA ÇOK İŞE YARIYORLAR
 
-  //SON KISIMLARDAYIZ:
-  //GÜZEL BİR READ.ME yapmaya başla
-  //Gerçekci ol bu kodu paylaşıp
-
-  String yourAPI = "3uMaWC6vsa";
+  String yourAPI = "";
   String? selectedValue;
   int firstBuyStock = 0;
 
@@ -828,7 +822,6 @@ class _Calculate_ScreenState extends State<Calculate_Screen> {
                                         getBuyUFEIndex(mselectedDate, 0);
                                         getSellExchangeRate(mselectedDate, 0);
                                         _sellSelectedDate[0] = mselectedDate;
-                                        //LİSTE OLUŞTUR eğer gönderilen getExchangeRate e 1 ise buna ver değer fln filan
                                       }
                                     });
                                   },
