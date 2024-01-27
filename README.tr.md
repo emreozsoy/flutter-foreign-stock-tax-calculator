@@ -74,7 +74,6 @@ Böylece yurtdışı borsalarında küçük miktarlarda alım/satım yapan birey
 
     ```
   Future<String> fetchExchangeRate(DateTime date) async {
-    date = date.subtract(Duration(days: 1));
     final formattedDate =
         '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     final url =
