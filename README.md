@@ -73,7 +73,6 @@ The goal is to provide individuals who engage in small-scale buying and selling 
 
     ```dart
   Future<String> fetchExchangeRate(DateTime date) async {
-    date = date.subtract(Duration(days: 1));
     final formattedDate =
         '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     final url =
